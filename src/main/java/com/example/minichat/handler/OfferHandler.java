@@ -31,6 +31,7 @@ public class OfferHandler  extends WebSocketMsgHandler {
         if (message instanceof OfferMsg){
             OfferMsg offerMsg = (OfferMsg)message;
             String id = offerMsg.getToId();
+            Thread.sleep(1000);
             WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.OFFER_TO).data(offerMsg).build();
             if (matchMakerSessionMap.containsKey(id)){
                 log.info("send offer to matchMaker:{}", id);
