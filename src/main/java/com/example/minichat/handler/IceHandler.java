@@ -37,7 +37,7 @@ public class IceHandler extends WebSocketMsgHandler {
                 sendMessage(matchMakerSessionMap.get(id), webSocketMsg);
             }else if (userSessionMap.containsKey(id)){
                 log.info("send ice to user:{}", id);
-                sendMessage(matchMakerSessionMap.get(id), webSocketMsg);
+                sendMessage(userSessionMap.get(id), webSocketMsg);
             }else{
                 throw new BusinessException("id不存在");
             }

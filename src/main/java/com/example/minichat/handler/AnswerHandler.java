@@ -2,6 +2,7 @@ package com.example.minichat.handler;
 
 import com.example.minichat.cons.EventName;
 import com.example.minichat.core.exception.BusinessException;
+import com.example.minichat.handler.message.AnswerMsg;
 import com.example.minichat.handler.message.OfferMsg;
 import com.example.minichat.handler.message.WebSocketMsg;
 import org.slf4j.Logger;
@@ -28,16 +29,16 @@ public class AnswerHandler extends WebSocketMsgHandler {
                        ConcurrentHashMap<String, AtomicBoolean> matchMakerStatusMap,
                        ConcurrentHashMap<String, String> userToMatchMakerMap) throws Exception {
 
-        if (message instanceof OfferMsg){
-            OfferMsg offerMsg = (OfferMsg)message;
-            String id = offerMsg.getToId();
-            WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.ANSWER_TO).data(offerMsg).build();
+        if (message instanceof AnswerMsg){
+            AnswerMsg answerMsg = (AnswerMsg)message;
+            String id = answerMsg.getToId();
+            WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.ANSWER_TO).data(answerMsg).build();
             if (matchMakerSessionMap.containsKey(id)){
                 log.info("send answer to matchMaker:{}", id);
                 sendMessage(matchMakerSessionMap.get(id), webSocketMsg);
             }else if (userSessionMap.containsKey(id)){
                 log.info("send answer to user:{}", id);
-                sendMessage(matchMakerSessionMap.get(id), webSocketMsg);
+                sendMessage(userSessionMap.get(id), webSocketMsg);
             }else{
                 throw new BusinessException("id不存在");
             }

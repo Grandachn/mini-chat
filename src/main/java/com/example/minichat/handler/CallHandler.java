@@ -34,16 +34,16 @@ public class CallHandler extends WebSocketMsgHandler{
             //抢占接通红娘
             Boolean grabFlag = false;
             AtomicBoolean status = matchMakerStatusMap.get(callMsg.getMid());
+            String uid = sessionIdToUserIdMap.get(session.getId());
 
             if (status.compareAndSet(true, false)){
                 //抢占成功
-                String uid = sessionIdToUserIdMap.get(session.getId());
                 userToMatchMakerMap.put(uid, callMsg.getMid());
                 log.info("user:{} is success connect matchMaker:{}", uid, callMsg.getMid());
                 noticeAllUserMatchMakerStatus(callMsg.getMid(), false, userSessionMap);
                 grabFlag = true;
             }
-            callAnswer(callMsg.getMid(), grabFlag, session, matchMakerSessionMap);
+            callAnswer(callMsg.getMid(), uid, grabFlag, session, matchMakerSessionMap);
         } else {
             throw new BusinessException("消息格式不正确");
         }
@@ -55,13 +55,17 @@ public class CallHandler extends WebSocketMsgHandler{
      * @param grabFlag 连线成功为true ，失败为false
      */
     private void callAnswer(String mid,
+                            String uid,
                             Boolean grabFlag,
                             Session session,
                             ConcurrentHashMap<String, Session> matchMakerSessionMap){
-        CallAnswerMsg msg = CallAnswerMsg.builder().mid(mid).grabFlag(grabFlag).build();
+        CallAnswerMsg msg = CallAnswerMsg.builder().mid(mid).uid(uid).grabFlag(grabFlag).build();
         WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.USER_CALL_ANSWER).data(msg).build();
+        log.info("send message :{} to userSessionId:{}", webSocketMsg, session.getId());
         sendMessage(session, webSocketMsg);
         if (grabFlag){
+            webSocketMsg = WebSocketMsg.builder().eventName(EventName.MATCHMAKER_CALL_ANSWER).data(msg).build();
+            log.info("send message :{} to matchmakerId:{}", webSocketMsg, mid);
             sendMessage(matchMakerSessionMap.get(mid), webSocketMsg);
         }
     }

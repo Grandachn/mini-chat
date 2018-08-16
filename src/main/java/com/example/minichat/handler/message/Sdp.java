@@ -4,10 +4,10 @@ import lombok.Data;
 
 /**
  * @Author by guanda
- * @Date 2018/8/13 13:48
+ * @Date 2018/8/16 15:31
  */
 @Data
-public class AnswerMsg {
-    private Sdp sdp;
-    private String toId;
+public class Sdp {
+    private String type;
+    private String sdp;
 }

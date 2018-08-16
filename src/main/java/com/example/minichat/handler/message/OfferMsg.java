@@ -8,6 +8,7 @@ import lombok.Data;
  */
 @Data
 public class OfferMsg {
-    private String sdp;
+    private Sdp sdp;
+    private String fromId;
     private String toId;
 }

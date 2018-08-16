@@ -58,7 +58,10 @@ public abstract class WebSocketMsgHandler {
                                                ConcurrentHashMap<String, Session> userSessionMap){
         MatchMakerStatusMsg msg = MatchMakerStatusMsg.builder().mid(mid).status(status).build();
         WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.MATCHMAKER_CHANGE_STATUS).data(msg).build();
-        userSessionMap.values().forEach(session ->sendMessage(session, webSocketMsg));
+        userSessionMap.values().forEach(session ->{
+            log.info("send message : {} to sessionId:{}", webSocketMsg,  session.getId());
+            sendMessage(session, webSocketMsg);
+        });
     }
 
 }
