@@ -1,10 +1,7 @@
 package com.example.minichat.handler;
 
-import com.example.minichat.cons.EventName;
 import com.example.minichat.core.exception.BusinessException;
 import com.example.minichat.handler.message.EndMsg;
-import com.example.minichat.handler.message.IceMsg;
-import com.example.minichat.handler.message.WebSocketMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,8 +29,9 @@ public class EndHandler extends WebSocketMsgHandler {
         if (message instanceof EndMsg){
             EndMsg endMsg = (EndMsg)message;
             String id = endMsg.getId();
-
+            String mid;
             if (matchMakerSessionMap.containsKey(id)){
+                mid = id;
                 log.info("matchMaker:{} end the chat", id);
                 matchMakerStatusMap.put(id, new AtomicBoolean(true));
                 userToMatchMakerMap.forEach((k, v) -> {
@@ -44,12 +42,14 @@ public class EndHandler extends WebSocketMsgHandler {
 
             }else if (userSessionMap.containsKey(id)){
                 log.info("user:{} end the chat", id);
-                String mid = userToMatchMakerMap.get(id);
+                mid = userToMatchMakerMap.get(id);
                 matchMakerStatusMap.put(mid, new AtomicBoolean(true));
                 userToMatchMakerMap.remove(id);
             }else{
                 throw new BusinessException("id不存在");
             }
+
+            noticeAllUserMatchMakerStatus(mid, true, userSessionMap);
         } else {
             throw new BusinessException("消息格式不正确");
         }
