@@ -16,7 +16,9 @@ public enum  ErrorResult {
     SMS_VERIFY_ERROR(102, "验证码不正确"),
     PAGE_SIZE_TOO_LONG(103, "单页请求数据请不要大于100条"),
     SURVEY_GROUP_ID_NULL(104,  "不存在的surveyGroupId"),
-    USER_NOT_TEST(105, "用户未进行测试");
+    USER_NOT_TEST(105, "用户未进行测试"),
+    UPDATE_USER_INFO_FAIL(106, "更新用户信息失败"),
+    WRONG_PASSWORD(107, "密码错误");
 
 
     private int code;

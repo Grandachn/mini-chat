@@ -13,4 +13,6 @@ public class MinichatApplicationTests {
 	public void contextLoads() {
 	}
 
+
+
 }

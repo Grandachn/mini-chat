@@ -1,7 +1,9 @@
 package com.example.minichat.handler;
 
+import com.example.minichat.cons.EventName;
 import com.example.minichat.core.exception.BusinessException;
 import com.example.minichat.handler.message.EndMsg;
+import com.example.minichat.handler.message.WebSocketMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +31,7 @@ public class EndHandler extends WebSocketMsgHandler {
         if (message instanceof EndMsg){
             EndMsg endMsg = (EndMsg)message;
             String id = endMsg.getId();
+            final String[] uid = new String[1];
             String mid;
             if (matchMakerSessionMap.containsKey(id)){
                 mid = id;
@@ -36,12 +39,14 @@ public class EndHandler extends WebSocketMsgHandler {
                 matchMakerStatusMap.put(id, new AtomicBoolean(true));
                 userToMatchMakerMap.forEach((k, v) -> {
                     if(v.equals(id)){
-                        matchMakerStatusMap.remove(k);
+                        uid[0] = k;
+                        userToMatchMakerMap.remove(k);
                     }
                 });
 
             }else if (userSessionMap.containsKey(id)){
                 log.info("user:{} end the chat", id);
+                uid[0] = id;
                 mid = userToMatchMakerMap.get(id);
                 matchMakerStatusMap.put(mid, new AtomicBoolean(true));
                 userToMatchMakerMap.remove(id);
@@ -50,6 +55,12 @@ public class EndHandler extends WebSocketMsgHandler {
             }
 
             noticeAllUserMatchMakerStatus(mid, true, userSessionMap);
+            //通知两端关闭peerConnection
+            WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.End_ANSWER).build();
+            log.info("send end to user:{}", uid[0]);
+            sendMessage(userSessionMap.get(uid[0]), webSocketMsg);
+            log.info("send end to matchMaker:{}", mid);
+            sendMessage(matchMakerSessionMap.get(mid), webSocketMsg);
         } else {
             throw new BusinessException("消息格式不正确");
         }

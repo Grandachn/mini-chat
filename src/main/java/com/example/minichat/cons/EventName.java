@@ -15,4 +15,6 @@ public class EventName {
     public static final String ANSWER_TO = "answerTo";
     public static final String End_ANSWER = "endAnswer";
     public static final String Join_ANSWER = "joinAnswer";
+    public static final String CLOSE_VIDEO = "closeVideo";
+    public static final String OPEN_VIDEO = "openVideo";
 }
