@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Controller;
  * @author granda
  * @since 2018-08-21
  */
-@Controller
+@RestController
 @RequestMapping("/matchmakerInfo")
 public class MatchmakerInfoController {
 
@@ -33,7 +34,7 @@ public class MatchmakerInfoController {
     public Result<Void> login(@RequestBody LoginReq loginReq){
         MatchmakerInfo matchmakerInfo = matchmakerInfoService.selectOne(new EntityWrapper<MatchmakerInfo>()
                 .eq("worker_id",loginReq.getMid()));
-        if (matchmakerInfo.getPassword().equals(loginReq.getPassword())){
+        if (null != matchmakerInfo && loginReq.getPassword().equals(matchmakerInfo.getPassword())){
             return Result.success();
         }
         return Result.error(ErrorResult.WRONG_PASSWORD);
