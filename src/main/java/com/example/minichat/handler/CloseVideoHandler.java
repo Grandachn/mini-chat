@@ -33,7 +33,9 @@ public class CloseVideoHandler extends WebSocketMsgHandler {
             String mid = userToMatchMakerMap.get(closeVideoMsg.getUid());
             WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.CLOSE_VIDEO).data(closeVideoMsg).build();
             log.info("send closeVideo to matchMaker:{}", mid);
-            sendMessage(matchMakerSessionMap.get(mid), webSocketMsg);
+            if(null != mid && null != matchMakerSessionMap.get(mid)){
+                sendMessage(matchMakerSessionMap.get(mid), webSocketMsg);
+            }
         } else {
             throw new BusinessException("消息格式不正确");
         }
