@@ -14,4 +14,9 @@ public class CallMsg {
      * 红娘id
      */
     private String mid;
+
+    /**
+     * 用户uid
+     */
+    private String userId;
 }

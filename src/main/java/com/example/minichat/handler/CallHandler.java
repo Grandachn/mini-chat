@@ -43,7 +43,7 @@ public class CallHandler extends WebSocketMsgHandler{
                 noticeAllUserMatchMakerStatus(callMsg.getMid(), false, userSessionMap);
                 grabFlag = true;
             }
-            callAnswer(callMsg.getMid(), uid, grabFlag, session, matchMakerSessionMap);
+            callAnswer(callMsg.getMid(), uid, callMsg.getUserId(), grabFlag, session, matchMakerSessionMap);
         } else {
             throw new BusinessException("消息格式不正确");
         }
@@ -56,10 +56,11 @@ public class CallHandler extends WebSocketMsgHandler{
      */
     private void callAnswer(String mid,
                             String uid,
+                            String userId,
                             Boolean grabFlag,
                             Session session,
                             ConcurrentHashMap<String, Session> matchMakerSessionMap){
-        CallAnswerMsg msg = CallAnswerMsg.builder().mid(mid).uid(uid).grabFlag(grabFlag).build();
+        CallAnswerMsg msg = CallAnswerMsg.builder().mid(mid).uid(uid).userId(userId).grabFlag(grabFlag).build();
         WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.USER_CALL_ANSWER).data(msg).build();
         log.info("send message :{} to userSessionId:{}", webSocketMsg, session.getId());
         sendMessage(session, webSocketMsg);

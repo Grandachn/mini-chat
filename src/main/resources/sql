@@ -9,7 +9,7 @@ CREATE TABLE `user_info` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid_key` (`uid`) USING HASH
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `matchmaker_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
@@ -24,4 +24,17 @@ CREATE TABLE `matchmaker_info` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid_key` (`uid`) USING HASH
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `note` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `uid` varchar(50) NOT NULL COMMENT '用户id',
+  `mid` varchar(50) NOT NULL COMMENT '红娘id',
+  `note` varchar(500) DEFAULT NULL COMMENT '红娘小记',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+

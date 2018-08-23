@@ -16,9 +16,14 @@ public class CallAnswerMsg {
     private String mid;
 
     /**
-     * 用户id
+     * 客户端id
      */
     private String uid;
+
+    /**
+     * 用户uid
+     */
+    private String userId;
 
     /**
      * 连线是否成功标志
