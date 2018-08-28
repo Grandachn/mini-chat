@@ -10,6 +10,8 @@ public class EventName {
     public static final String USER_CALL = "userCall";
     public static final String USER_CALL_ANSWER = "userCallAnswer";
     public static final String MATCHMAKER_CALL_ANSWER = "matchMakerCallAnswer";
+    public static final String USER_SURE_CALL_ANSWER = "userSureCallAnswer";
+    public static final String MATCHMAKER_SURE_CALL_ANSWER = "matchMakerSureCallAnswer";
     public static final String ICE_TO = "iceTo";
     public static final String OFFER_TO = "offerTo";
     public static final String ANSWER_TO = "answerTo";
