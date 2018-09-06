@@ -31,9 +31,10 @@ public class SureCallHandler extends WebSocketMsgHandler{
 
         if (message instanceof SureCallMsg){
             SureCallMsg sureCallMsg = (SureCallMsg)message;
-            if(sureCallMsg.getGrabFlag() == false){
-                matchMakerStatusMap.put(sureCallMsg.getMid(), new AtomicBoolean(true));
-            }
+//            if(sureCallMsg.getGrabFlag() == false){
+//                matchMakerStatusMap.put(sureCallMsg.getMid(), new AtomicBoolean(true));
+//            }
+//            Thread.sleep(3000);
             callAnswer(sureCallMsg.getMid(), sureCallMsg.getUid(), sureCallMsg.getUserId(), sureCallMsg.getGrabFlag(), matchMakerSessionMap, userSessionMap);
         } else {
             throw new BusinessException("消息格式不正确");

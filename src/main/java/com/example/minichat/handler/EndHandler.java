@@ -36,14 +36,14 @@ public class EndHandler extends WebSocketMsgHandler {
             if (matchMakerSessionMap.containsKey(id)){
                 mid = id;
                 log.info("matchMaker:{} end the chat", id);
-                matchMakerStatusMap.put(id, new AtomicBoolean(true));
+//                matchMakerStatusMap.put(id, new AtomicBoolean(true));
                 userToMatchMakerMap.forEach((k, v) -> {
                     if(v.equals(id)){
                         uid[0] = k;
                         userToMatchMakerMap.remove(k);
                     }
                 });
-                noticeAllUserMatchMakerStatus(mid, true, userSessionMap);
+//                noticeAllUserMatchMakerStatus(mid, true, userSessionMap);
                 //通知两端关闭peerConnection
                 WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.End_ANSWER).build();
                 log.info("send end to user:{}", uid[0]);

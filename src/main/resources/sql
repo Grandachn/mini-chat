@@ -37,4 +37,16 @@ CREATE TABLE `note` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `sms_code` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `phone` varchar(12) NOT NULL DEFAULT '',
+  `code` varchar(6) NOT NULL DEFAULT '',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `PHONE_KEY` (`phone`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
 

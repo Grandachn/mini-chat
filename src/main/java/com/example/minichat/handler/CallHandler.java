@@ -35,9 +35,12 @@ public class CallHandler extends WebSocketMsgHandler{
             Boolean grabFlag = false;
             AtomicBoolean status = matchMakerStatusMap.get(callMsg.getMid());
             String uid = sessionIdToUserIdMap.get(session.getId());
-
+            if(null == status){
+                return;
+            }
             if (status.compareAndSet(true, false)){
                 //抢占成功
+                log.info("matchMaker:{}", status.toString());
                 userToMatchMakerMap.put(uid, callMsg.getMid());
                 log.info("user:{} is success connect matchMaker:{}", uid, callMsg.getMid());
                 noticeAllUserMatchMakerStatus(callMsg.getMid(), false, userSessionMap);
