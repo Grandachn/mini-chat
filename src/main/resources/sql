@@ -48,5 +48,19 @@ CREATE TABLE `sms_code` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
+CREATE TABLE `box_position` (
+  `id` int(11) NOT NULL,
+  `addr` varchar(50) NOT NULL COMMENT '机器部署地址',
+  `dept_id` int(11) NOT NULL,
+  `dept_name` varchar(50) NOT NULL COMMENT '对应门店名称',
+  `dept_addr` varchar(255) NOT NULL COMMENT '对应门店地址',
+  `distance` varchar(10) NOT NULL COMMENT '距离门店距离',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
 
 

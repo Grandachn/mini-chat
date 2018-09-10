@@ -24,7 +24,7 @@ public class GeneratorServiceEntity {
     public void generateCode() {
         String packageName = "com.example.minichat";
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, packageName, "sms_code");
+        generateByTables(serviceNameStartWithI, packageName, "label");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) {

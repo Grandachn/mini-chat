@@ -2,6 +2,7 @@ package com.example.minichat.handler;
 
 import com.example.minichat.cons.EventName;
 import com.example.minichat.core.exception.BusinessException;
+import com.example.minichat.handler.message.EndAnswerMsg;
 import com.example.minichat.handler.message.EndMsg;
 import com.example.minichat.handler.message.WebSocketMsg;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class EndHandler extends WebSocketMsgHandler {
                 });
 //                noticeAllUserMatchMakerStatus(mid, true, userSessionMap);
                 //通知两端关闭peerConnection
-                WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.End_ANSWER).build();
+                WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.End_ANSWER).data(EndAnswerMsg.builder().byWho(2).build()).build();
                 log.info("send end to user:{}", uid[0]);
                 sendMessage(userSessionMap.get(uid[0]), webSocketMsg);
                 log.info("send end to matchMaker:{}", mid);
@@ -56,11 +57,11 @@ public class EndHandler extends WebSocketMsgHandler {
                 uid[0] = id;
                 mid = userToMatchMakerMap.get(id);
                 if (null != mid) {
-                    matchMakerStatusMap.put(mid, new AtomicBoolean(true));
+//                    matchMakerStatusMap.put(mid, new AtomicBoolean(true));
                     userToMatchMakerMap.remove(id);
                     noticeAllUserMatchMakerStatus(mid, true, userSessionMap);
                     //通知两端关闭peerConnection
-                    WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.End_ANSWER).build();
+                    WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.End_ANSWER).data(EndAnswerMsg.builder().byWho(1).build()).build();
                     log.info("send end to user:{}", uid[0]);
                     sendMessage(userSessionMap.get(uid[0]), webSocketMsg);
                     log.info("send end to matchMaker:{}", mid);
