@@ -5,7 +5,10 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.example.minichat.core.dto.ErrorResult;
 import com.example.minichat.core.dto.Result;
 import com.example.minichat.entity.SmsCode;
+import com.example.minichat.entity.UserInfo;
+import com.example.minichat.interceptor.SessionContext;
 import com.example.minichat.service.SmsCodeService;
+import com.example.minichat.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +34,9 @@ public class SmsCodeController {
     @Autowired
     private SmsCodeService smsCodeService;
 
+    @Autowired
+    private UserInfoService userInfoService;
+
     private Pattern pattern = Pattern.compile("1\\d{10}");
 
     @GetMapping("/{phone}")
@@ -53,6 +59,14 @@ public class SmsCodeController {
     public Result<Void> checkVerifySms(@PathVariable String phone, @PathVariable String code) {
         SmsCode smsCode = smsCodeService.selectOne(new EntityWrapper<SmsCode>().eq("phone", phone));
         if (null != smsCode && smsCode.getCode().equals(code)){
+            String uid = SessionContext.getUid();
+            UserInfo userInfo = userInfoService.selectOne(new EntityWrapper<UserInfo>().eq("uid", uid));
+            if (null == userInfo){
+                userInfo = new UserInfo();
+                userInfo.setUid(uid);
+            }
+            userInfo.setPhone(phone);
+            userInfoService.insertOrUpdate(userInfo);
             return Result.success();
         }
         return  Result.error(ErrorResult.SMS_VERIFY_ERROR);

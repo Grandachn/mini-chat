@@ -19,9 +19,14 @@ public class UserInfoReq {
      * 出生日期
      */
     private Date birthday;
+
+    private Integer age;
+
     private String phone;
     /**
      * 1单身 2热恋 3已婚 4离异
      */
     private Integer marriage;
+
+    private String label;
 }

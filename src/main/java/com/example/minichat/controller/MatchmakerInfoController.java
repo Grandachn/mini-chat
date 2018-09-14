@@ -3,10 +3,12 @@ package com.example.minichat.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.example.minichat.controller.req.LoginReq;
+import com.example.minichat.controller.rsp.MatchmakerInfoRsp;
 import com.example.minichat.core.dto.ErrorResult;
 import com.example.minichat.core.dto.Result;
 import com.example.minichat.entity.MatchmakerInfo;
 import com.example.minichat.service.MatchmakerInfoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,10 +38,12 @@ public class MatchmakerInfoController {
     }
 
     @GetMapping("/{mid}")
-    public Result<MatchmakerInfo> getMatchmakerInfo(@PathVariable String mid){
+    public Result<MatchmakerInfoRsp> getMatchmakerInfo(@PathVariable String mid){
         MatchmakerInfo matchmakerInfo = matchmakerInfoService.selectOne(new EntityWrapper<MatchmakerInfo>()
                 .eq("worker_id", mid));
-        return Result.success(matchmakerInfo);
+        MatchmakerInfoRsp matchmakerInfoRsp = new MatchmakerInfoRsp();
+        BeanUtils.copyProperties(matchmakerInfo, matchmakerInfoRsp);
+        return Result.success(matchmakerInfoRsp);
     }
 }
 

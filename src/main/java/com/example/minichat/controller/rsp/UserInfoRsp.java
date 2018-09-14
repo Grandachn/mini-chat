@@ -29,7 +29,7 @@ public class UserInfoRsp {
     /**
      * 便签
      */
-    private String memo;
+    private String label;
 
     /**
      * 是否验证状态

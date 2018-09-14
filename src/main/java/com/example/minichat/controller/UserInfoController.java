@@ -7,12 +7,14 @@ import com.example.minichat.controller.rsp.UserInfoRsp;
 import com.example.minichat.core.dto.ErrorResult;
 import com.example.minichat.core.dto.Result;
 import com.example.minichat.entity.UserInfo;
+import com.example.minichat.service.LabelService;
 import com.example.minichat.service.UserInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -30,9 +32,16 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
+    @Autowired
+    private LabelService labelService;
+
     @PostMapping
     public Result<Void> addUserInfo(@RequestBody UserInfoReq userInfoReq){
         UserInfo userInfo = userInfoService.selectOne(new EntityWrapper<UserInfo>().eq("uid", userInfoReq.getUid()));
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.YEAR, - Integer.valueOf(userInfoReq.getAge()));
+        userInfoReq.setBirthday(c.getTime());
         if (null == userInfo){
             userInfo = new UserInfo();
         }
@@ -94,7 +103,9 @@ public class UserInfoController {
             userInfoRsp.setStatus(0);
         }
 
-        userInfoRsp.setMemo("测试便签内容");
+        if (null != userInfo.getLabel()){
+            userInfoRsp.setLabel(labelService.selectById(Integer.valueOf(userInfo.getLabel())).getContent());
+        }
         return userInfoRsp;
     }
 }

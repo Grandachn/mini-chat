@@ -1,30 +1,15 @@
-package com.example.minichat.entity;
+package com.example.minichat.controller.rsp;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
-
-import java.io.Serializable;
+import lombok.NoArgsConstructor;
 
 /**
- * <p>
- * 
- * </p>
- *
- * @author granda
- * @since 2018-08-21
+ * @Author by guanda
+ * @Date 2018/9/14 14:02
  */
 @Data
-public class MatchmakerInfo implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * 自增长id
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+@NoArgsConstructor
+public class MatchmakerInfoRsp {
     /**
      * 红娘id
      */
@@ -49,10 +34,7 @@ public class MatchmakerInfo implements Serializable {
      * 红娘照片url
      */
     private String picUrl;
-    /**
-     * 密码
-     */
-    private String password;
+
     /**
      * 微信二维码url
      */
@@ -61,5 +43,4 @@ public class MatchmakerInfo implements Serializable {
      * 电话
      */
     private String phone;
-
 }

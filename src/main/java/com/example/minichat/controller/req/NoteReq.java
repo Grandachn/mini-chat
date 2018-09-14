@@ -31,4 +31,7 @@ public class NoteReq implements Serializable {
     private String note;
 
 
+    private String nickname;
+
+    private String rejectReason;
 }

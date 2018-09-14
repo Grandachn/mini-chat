@@ -40,6 +40,8 @@ public class UserInfo implements Serializable {
      */
     private Integer marriage;
 
+    private String label;
+
 
 
     public Long getId() {
@@ -90,5 +92,11 @@ public class UserInfo implements Serializable {
         this.marriage = marriage;
     }
 
+    public String getLabel() {
+        return label;
+    }
 
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }

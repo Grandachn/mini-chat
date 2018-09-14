@@ -20,11 +20,11 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  */
 public class GeneratorServiceEntity {
 
-    @Test
+//    @Test
     public void generateCode() {
         String packageName = "com.example.minichat";
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, packageName, "label");
+        generateByTables(serviceNameStartWithI, packageName, "chat_note");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) {

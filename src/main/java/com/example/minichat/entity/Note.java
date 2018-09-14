@@ -35,6 +35,10 @@ public class Note implements Serializable {
      */
     private String note;
 
+    private String nickname;
+
+    private String rejectReason;
+
 
     public Long getId() {
         return id;
@@ -68,6 +72,21 @@ public class Note implements Serializable {
         this.note = note;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
+    }
 
     @Override
     public String toString() {
