@@ -80,7 +80,7 @@ INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_a
 INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `distance`, `create_time`, `update_time`) VALUES ('1003', '益田假日', '207', '科技园店', '深圳市南山区高新南一道008号创维大厦C座801室', '2.0km', '2018-09-10 17:52:13', '2018-09-10 17:52:13');
 INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `distance`, `create_time`, `update_time`) VALUES ('1004', '益田假日', '207', '科技园店', '深圳市南山区高新南一道008号创维大厦C座801室', '2.0km', '2018-09-10 17:52:13', '2018-09-10 17:52:13');
 
-
+INSERT INTO `chat`.`label` (`id`, `content`, `create_time`, `update_time`) VALUES ('0', '未选择标签', '2018-09-17 01:54:08', '2018-09-17 01:54:08');
 INSERT INTO `chat`.`label` (`id`, `content`, `create_time`, `update_time`) VALUES ('1', '我对爱情失去了信心', '2018-09-10 21:18:10', '2018-09-10 21:18:10');
 INSERT INTO `chat`.`label` (`id`, `content`, `create_time`, `update_time`) VALUES ('2', '怎样找到心动的人呢', '2018-09-10 21:18:36', '2018-09-10 21:18:36');
 INSERT INTO `chat`.`label` (`id`, `content`, `create_time`, `update_time`) VALUES ('3', '好的恋爱该怎么开始', '2018-09-10 21:18:56', '2018-09-10 21:18:56');
