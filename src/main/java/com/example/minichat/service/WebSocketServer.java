@@ -144,7 +144,7 @@ public class WebSocketServer {
     @OnClose
     public void onClose() {
         String uid = close();
-        log.info("uid:" + uid + "关闭连接");
+        log.info("uid:" + uid + "is close");
     }
 
     /**
