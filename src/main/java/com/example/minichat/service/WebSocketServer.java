@@ -85,7 +85,8 @@ public class WebSocketServer {
             //用户接入
             log.info("user:{} is connect", id);
             userSessionMap.put(id, session);
-            getALLMatchMakerStatus();
+//            getALLMatchMakerStatus();
+            connectSuccess();
         }
 
         sessionIdToUserIdMap.put(session.getId(), id);
@@ -107,6 +108,15 @@ public class WebSocketServer {
      */
     private void getALLMatchMakerStatus(){
         WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.GET_ALL_MATCHMAKER_STATE).data(matchMakerStatusMap).build();
+        log.info("send message:{}", webSocketMsg.toString());
+        sendMessage(this.session, webSocketMsg);
+    }
+
+    /**
+     * 获取所有红娘空闲状态
+     */
+    private void connectSuccess(){
+        WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.CONNECT_SUCCESS).build();
         log.info("send message:{}", webSocketMsg.toString());
         sendMessage(this.session, webSocketMsg);
     }

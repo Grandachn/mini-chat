@@ -7,6 +7,7 @@ package com.example.minichat.cons;
 public class EventName {
     public static final String MATCHMAKER_CHANGE_STATUS = "matchMakerChangeStatus";
     public static final String GET_ALL_MATCHMAKER_STATE = "getAllMatchMakerStatus";
+    public static final String CONNECT_SUCCESS = "connectSuccess";
     public static final String USER_CALL = "userCall";
     public static final String USER_CALL_ANSWER = "userCallAnswer";
     public static final String MATCHMAKER_CALL_ANSWER = "matchMakerCallAnswer";
