@@ -75,6 +75,14 @@ CREATE TABLE `label` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
+CREATE TABLE `version` (
+  `id` int(11) NOT NULL,
+  `version` varchar(50) NOT NULL COMMENT '版本号',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `distance`, `create_time`, `update_time`) VALUES ('1001', '华强北九方', '216', '深圳地王店', '深圳市罗湖区地王大厦53层', '2.0km', '2018-09-10 17:50:57', '2018-09-10 17:50:57');
 INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `distance`, `create_time`, `update_time`) VALUES ('1002', '华强北九方', '216', '深圳地王店', '深圳市罗湖区地王大厦53层', '2.0km', '2018-09-10 17:50:57', '2018-09-10 17:50:57');
 INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `distance`, `create_time`, `update_time`) VALUES ('1003', '益田假日', '207', '科技园店', '深圳市南山区高新南一道008号创维大厦C座801室', '2.0km', '2018-09-10 17:52:13', '2018-09-10 17:52:13');
@@ -91,3 +99,15 @@ INSERT INTO `chat`.`label` (`id`, `content`, `create_time`, `update_time`) VALUE
 INSERT INTO `chat`.`matchmaker_info` (`id`, `uid`, `name`, `worker_id`, `gender`, `detail`, `pic_url`, `password`, `create_time`, `update_time`) VALUES ('5', 'adfdasfdfads', '鳁鲸', '666666', '2', '有12年的专业经验，成功撮合99对情侣，帮助100人找到灵魂伴侣', '../../static/pic/3.png', '123456', '2018-08-21 16:41:22', '2018-09-06 11:45:55');
 INSERT INTO `chat`.`matchmaker_info` (`id`, `uid`, `name`, `worker_id`, `gender`, `detail`, `pic_url`, `password`, `create_time`, `update_time`) VALUES ('6', 'werwqewqewq', '小李', '123456', '1', '有12年的专业经验，成功撮合99对情侣，帮助100人找到灵魂伴侣', '../../static/pic/1.png', '123456', '2018-08-22 15:58:48', '2018-09-06 11:26:29');
 INSERT INTO `chat`.`matchmaker_info` (`id`, `uid`, `name`, `worker_id`, `gender`, `detail`, `pic_url`, `password`, `create_time`, `update_time`) VALUES ('7', '21313123ess', '王校长', '888888', '2', '有12年的专业经验，成功撮合99对情侣，帮助100人找到灵魂伴侣', '../../static/pic/2.png', '123456', '2018-08-23 14:59:28', '2018-09-06 11:41:52');
+
+INSERT INTO `chat`.`version` (`id`, `version`, `create_time`, `update_time`) VALUES ('0', '1.0.0', '2018-09-18 02:01:17', '2018-09-18 02:01:17');
+
+
+INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('0', NULL, '生命中越珍贵的东西越爱迟到。爱情，会姗姗来迟，但永远值得等待。', '2018-09-18 16:48:13', '2018-09-18 16:48:13');
+INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('1', NULL, '心里的话，有人听就是温暖；郁闷的事，有人懂就是幸福。', '2018-09-18 16:48:23', '2018-09-18 16:48:23');
+INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('2', NULL, '时光不负有心人，星光不负赶路人。', '2018-09-18 16:48:45', '2018-09-18 16:48:45');
+INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('3', NULL, '不论在何处，愿你把握现在，鼓起勇气，探索未来的每一种可能。', '2018-09-18 16:48:52', '2018-09-18 16:48:52');
+INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('4', NULL, '一个人的时候，多一点努力，才能让自己的爱情，少一点条件，多一点纯粹。', '2018-09-18 16:49:05', '2018-09-18 16:49:05');
+INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('5', NULL, '愿陪你三世，一世枕边书，一世怀中猫，一世意中人。', '2018-09-18 16:49:16', '2018-09-18 16:49:16');
+INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('6', NULL, '真正爱你的人不会说许多爱你的话，却会做许多爱你的事。', '2018-09-18 16:58:23', '2018-09-18 16:58:23');
+

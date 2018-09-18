@@ -24,12 +24,12 @@ public class GeneratorServiceEntity {
     public void generateCode() {
         String packageName = "com.example.minichat";
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, packageName, "chat_note");
+        generateByTables(serviceNameStartWithI, packageName, "chicken_soup");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) {
         GlobalConfig config = new GlobalConfig();
-        String dbUrl = "jdbc:mysql://localhost:3306/chat";
+        String dbUrl = "jdbc:mysql://67.216.194.219:3306/chat";
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
         dataSourceConfig.setDbType(DbType.MYSQL)
                 .setUrl(dbUrl)
