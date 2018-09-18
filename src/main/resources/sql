@@ -61,6 +61,8 @@ CREATE TABLE `box_position` (
   `dept_name` varchar(50) NOT NULL COMMENT '对应门店名称',
   `dept_addr` varchar(255) NOT NULL COMMENT '对应门店地址',
   `distance` varchar(10) NOT NULL COMMENT '距离门店距离',
+  `y` varchar(20) DEFAULT NULL,
+  `x` varchar(20) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -83,10 +85,21 @@ CREATE TABLE `version` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `distance`, `create_time`, `update_time`) VALUES ('1001', '华强北九方', '216', '深圳地王店', '深圳市罗湖区地王大厦53层', '2.0km', '2018-09-10 17:50:57', '2018-09-10 17:50:57');
-INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `distance`, `create_time`, `update_time`) VALUES ('1002', '华强北九方', '216', '深圳地王店', '深圳市罗湖区地王大厦53层', '2.0km', '2018-09-10 17:50:57', '2018-09-10 17:50:57');
-INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `distance`, `create_time`, `update_time`) VALUES ('1003', '益田假日', '207', '科技园店', '深圳市南山区高新南一道008号创维大厦C座801室', '2.0km', '2018-09-10 17:52:13', '2018-09-10 17:52:13');
-INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `distance`, `create_time`, `update_time`) VALUES ('1004', '益田假日', '207', '科技园店', '深圳市南山区高新南一道008号创维大厦C座801室', '2.0km', '2018-09-10 17:52:13', '2018-09-10 17:52:13');
+CREATE TABLE `chicken_soup` (
+  `id` int(11) NOT NULL,
+  `labelId` int(11) DEFAULT NULL,
+  `content` varchar(300) NOT NULL COMMENT '鸡汤内容',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `labelId_key` (`labelId`) USING HASH
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `y`, `x`, `distance`, `create_time`, `update_time`) VALUES ('1001', '华强北九方', '216', '深圳地王店', '深圳市罗湖区地王大厦53层', '22.548831', '114.116516', '2.0km', '2018-09-10 17:50:57', '2018-09-18 09:50:08');
+INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `y`, `x`, `distance`, `create_time`, `update_time`) VALUES ('1002', '华强北九方', '216', '深圳地王店', '深圳市罗湖区地王大厦53层', '22.548831', '114.116516', '2.0km', '2018-09-10 17:50:57', '2018-09-18 09:50:23');
+INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `y`, `x`, `distance`, `create_time`, `update_time`) VALUES ('1003', '益田假日', '207', '科技园店', '深圳市南山区高新南一道008号创维大厦C座801室', '22.544881', '113.957699', '2.0km', '2018-09-10 17:52:13', '2018-09-18 09:49:20');
+INSERT INTO `chat`.`box_position` (`id`, `addr`, `dept_id`, `dept_name`, `dept_addr`, `y`, `x`, `distance`, `create_time`, `update_time`) VALUES ('1004', '益田假日', '207', '科技园店', '深圳市南山区高新南一道008号创维大厦C座801室', '22.544881', '113.957699', '2.0km', '2018-09-10 17:52:13', '2018-09-18 09:49:24');
 
 INSERT INTO `chat`.`label` (`id`, `content`, `create_time`, `update_time`) VALUES ('0', '未选择标签', '2018-09-17 01:54:08', '2018-09-17 01:54:08');
 INSERT INTO `chat`.`label` (`id`, `content`, `create_time`, `update_time`) VALUES ('1', '我对爱情失去了信心', '2018-09-10 21:18:10', '2018-09-10 21:18:10');
@@ -108,6 +121,6 @@ INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `u
 INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('2', NULL, '时光不负有心人，星光不负赶路人。', '2018-09-18 16:48:45', '2018-09-18 16:48:45');
 INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('3', NULL, '不论在何处，愿你把握现在，鼓起勇气，探索未来的每一种可能。', '2018-09-18 16:48:52', '2018-09-18 16:48:52');
 INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('4', NULL, '一个人的时候，多一点努力，才能让自己的爱情，少一点条件，多一点纯粹。', '2018-09-18 16:49:05', '2018-09-18 16:49:05');
-INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('5', NULL, '愿陪你三世，一世枕边书，一世怀中猫，一世意中人。', '2018-09-18 16:49:16', '2018-09-18 16:49:16');
+INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('5', NULL, '&emsp;&emsp;&emsp;愿陪你三世，<br/>&emsp;&emsp;&emsp;一世枕边书，<br/>&emsp;&emsp;&emsp;一世怀中猫，<br/>&emsp;&emsp;&emsp;一世意中人。', '2018-09-18 16:49:16', '2018-09-18 08:42:27');
 INSERT INTO `chat`.`chicken_soup` (`id`, `labelId`, `content`, `create_time`, `update_time`) VALUES ('6', NULL, '真正爱你的人不会说许多爱你的话，却会做许多爱你的事。', '2018-09-18 16:58:23', '2018-09-18 16:58:23');
 
