@@ -37,14 +37,12 @@ public class EndHandler extends WebSocketMsgHandler {
             if (matchMakerSessionMap.containsKey(id)){
                 mid = id;
                 log.info("matchMaker:{} end the chat", id);
-//                matchMakerStatusMap.put(id, new AtomicBoolean(true));
                 userToMatchMakerMap.forEach((k, v) -> {
                     if(v.equals(id)){
                         uid[0] = k;
                         userToMatchMakerMap.remove(k);
                     }
                 });
-//                noticeAllUserMatchMakerStatus(mid, true, userSessionMap);
                 //通知两端关闭peerConnection
                 WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.End_ANSWER).data(EndAnswerMsg.builder().byWho(2).build()).build();
                 log.info("send end to user:{}", uid[0]);
@@ -57,7 +55,6 @@ public class EndHandler extends WebSocketMsgHandler {
                 uid[0] = id;
                 mid = userToMatchMakerMap.get(id);
                 if (null != mid) {
-//                    matchMakerStatusMap.put(mid, new AtomicBoolean(true));
                     userToMatchMakerMap.remove(id);
                     noticeAllUserMatchMakerStatus(mid, true, userSessionMap);
                     //通知两端关闭peerConnection
@@ -68,17 +65,7 @@ public class EndHandler extends WebSocketMsgHandler {
                     sendMessage(matchMakerSessionMap.get(mid), webSocketMsg);
                 }
             }
-//            }else{
-//                throw new BusinessException("id不存在");
-//            }
 
-//            noticeAllUserMatchMakerStatus(mid, true, userSessionMap);
-//            //通知两端关闭peerConnection
-//            WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.End_ANSWER).build();
-//            log.info("send end to user:{}", uid[0]);
-//            sendMessage(userSessionMap.get(uid[0]), webSocketMsg);
-//            log.info("send end to matchMaker:{}", mid);
-//            sendMessage(matchMakerSessionMap.get(mid), webSocketMsg);
         } else {
             throw new BusinessException("消息格式不正确");
         }
