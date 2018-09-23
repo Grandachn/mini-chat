@@ -4,9 +4,11 @@ package com.example.minichat.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.example.minichat.core.dto.ErrorResult;
 import com.example.minichat.core.dto.Result;
+import com.example.minichat.entity.MatchmakerInfo;
 import com.example.minichat.entity.SmsCode;
 import com.example.minichat.entity.UserInfo;
 import com.example.minichat.interceptor.SessionContext;
+import com.example.minichat.service.MatchmakerInfoService;
 import com.example.minichat.service.SmsCodeService;
 import com.example.minichat.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,9 @@ public class SmsCodeController {
 
     @Autowired
     private UserInfoService userInfoService;
+
+    @Autowired
+    private MatchmakerInfoService matchmakerInfoService;
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -93,6 +98,39 @@ public class SmsCodeController {
             }
             userInfo.setPhone(phone);
             userInfoService.insertOrUpdate(userInfo);
+            return Result.success();
+        }
+        return  Result.error(ErrorResult.SMS_VERIFY_ERROR);
+    }
+
+    @GetMapping("/{phone}/{code}/{mid}")
+    public Result<Void> checkVerifySmsAfterChat(@PathVariable String phone, @PathVariable String code,  @PathVariable String mid) {
+        SmsCode smsCode = smsCodeService.selectOne(new EntityWrapper<SmsCode>().eq("phone", phone));
+        if (null != smsCode && smsCode.getCode().equals(code)){
+            String uid = SessionContext.getUid();
+            UserInfo userInfo = userInfoService.selectOne(new EntityWrapper<UserInfo>().eq("uid", uid));
+            if (null == userInfo){
+                userInfo = new UserInfo();
+                userInfo.setUid(uid);
+            }
+            userInfo.setPhone(phone);
+            userInfoService.insertOrUpdate(userInfo);
+            MatchmakerInfo matchmakerInfo = matchmakerInfoService.selectOne(new EntityWrapper<MatchmakerInfo>().eq("worker_id", mid));
+
+            sendMailThread.execute(() -> {
+                SimpleMailMessage mainMessage = new SimpleMailMessage();
+                //发送者
+                mainMessage.setFrom("hgd0922@163.com");
+                //接收者
+                mainMessage.setTo("grandachn@163.com");
+                //发送的标题
+                mainMessage.setSubject("【珍心面对面】手机号：" + phone);
+                //发送的内容
+                mainMessage.setText("刚才与您连线的老师是：" + matchmakerInfo.getName() + "，联系电话：" + matchmakerInfo.getPhone());
+
+                javaMailSender.send(mainMessage);
+            });
+
             return Result.success();
         }
         return  Result.error(ErrorResult.SMS_VERIFY_ERROR);
