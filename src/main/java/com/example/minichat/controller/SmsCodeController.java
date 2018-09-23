@@ -103,37 +103,28 @@ public class SmsCodeController {
         return  Result.error(ErrorResult.SMS_VERIFY_ERROR);
     }
 
-    @GetMapping("/{phone}/{code}/{mid}")
-    public Result<Void> checkVerifySmsAfterChat(@PathVariable String phone, @PathVariable String code,  @PathVariable String mid) {
-        SmsCode smsCode = smsCodeService.selectOne(new EntityWrapper<SmsCode>().eq("phone", phone));
-        if (null != smsCode && smsCode.getCode().equals(code)){
-            String uid = SessionContext.getUid();
-            UserInfo userInfo = userInfoService.selectOne(new EntityWrapper<UserInfo>().eq("uid", uid));
-            if (null == userInfo){
-                userInfo = new UserInfo();
-                userInfo.setUid(uid);
-            }
-            userInfo.setPhone(phone);
-            userInfoService.insertOrUpdate(userInfo);
-            MatchmakerInfo matchmakerInfo = matchmakerInfoService.selectOne(new EntityWrapper<MatchmakerInfo>().eq("worker_id", mid));
+    @GetMapping("/mid/{mid}")
+    public Result<Void> checkVerifySmsAfterChat(@PathVariable String phone, @PathVariable String mid) {
+        String uid = SessionContext.getUid();
+        UserInfo userInfo = userInfoService.selectOne(new EntityWrapper<UserInfo>().eq("uid", uid));
 
-            sendMailThread.execute(() -> {
-                SimpleMailMessage mainMessage = new SimpleMailMessage();
-                //发送者
-                mainMessage.setFrom("hgd0922@163.com");
-                //接收者
-                mainMessage.setTo("grandachn@163.com");
-                //发送的标题
-                mainMessage.setSubject("【珍心面对面】手机号：" + phone);
-                //发送的内容
-                mainMessage.setText("刚才与您连线的老师是：" + matchmakerInfo.getName() + "，联系电话：" + matchmakerInfo.getPhone());
+        MatchmakerInfo matchmakerInfo = matchmakerInfoService.selectOne(new EntityWrapper<MatchmakerInfo>().eq("worker_id", mid));
 
-                javaMailSender.send(mainMessage);
-            });
+        sendMailThread.execute(() -> {
+            SimpleMailMessage mainMessage = new SimpleMailMessage();
+            //发送者
+            mainMessage.setFrom("hgd0922@163.com");
+            //接收者
+            mainMessage.setTo("grandachn@163.com");
+            //发送的标题
+            mainMessage.setSubject("【珍心面对面】手机号：" + userInfo.getPhone());
+            //发送的内容
+            mainMessage.setText("刚才与您连线的老师是：" + matchmakerInfo.getName() + "，联系电话：" + matchmakerInfo.getPhone());
 
-            return Result.success();
-        }
-        return  Result.error(ErrorResult.SMS_VERIFY_ERROR);
+            javaMailSender.send(mainMessage);
+        });
+
+        return Result.success();
     }
 }
 
