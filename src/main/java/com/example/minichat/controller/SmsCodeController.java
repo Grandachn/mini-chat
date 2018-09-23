@@ -103,8 +103,8 @@ public class SmsCodeController {
         return  Result.error(ErrorResult.SMS_VERIFY_ERROR);
     }
 
-    @GetMapping("/mid/{mid}")
-    public Result<Void> checkVerifySmsAfterChat(@PathVariable String phone, @PathVariable String mid) {
+    @GetMapping("/sendMidInfo/mid/{mid}")
+    public Result<Void> checkVerifySmsAfterChat(@PathVariable String mid) {
         String uid = SessionContext.getUid();
         UserInfo userInfo = userInfoService.selectOne(new EntityWrapper<UserInfo>().eq("uid", uid));
 
