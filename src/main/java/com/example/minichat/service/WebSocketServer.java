@@ -199,6 +199,24 @@ public class WebSocketServer {
 
         if (matchMakerSessionMap.containsKey(uid)){
             noticeAllUserMatchMakerStatus(uid, false);
+            userToMatchMakerMap.forEach((k, v) -> {
+                if(v.equals(uid)){
+                    userToMatchMakerMap.remove(k);
+                    WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.NET_ERROR).build();
+                    if(k != null && userSessionMap.get(k) != null){
+                        sendMessage(userSessionMap.get(k), webSocketMsg);
+                    }
+                }
+            });
+
+
+        }else if(userSessionMap.containsKey(uid)){
+            String mid = userToMatchMakerMap.get(uid);
+            if(mid != null && matchMakerSessionMap.get(mid) != null){
+                WebSocketMsg webSocketMsg = WebSocketMsg.builder().eventName(EventName.NET_ERROR).build();
+                sendMessage(matchMakerSessionMap.get(mid), webSocketMsg);
+            }
+            userToMatchMakerMap.remove(uid);
         }
 
         sessionIdToUserIdMap.remove(this.session.getId());
