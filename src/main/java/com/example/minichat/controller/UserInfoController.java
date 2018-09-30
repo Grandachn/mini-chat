@@ -63,7 +63,7 @@ public class UserInfoController {
         if (null != userInfo){
             return Result.success(entityToRsp(userInfo));
         }
-        return Result.error(ErrorResult.SMS_SEND_ERROR);
+        return Result.error(ErrorResult.USER_NOT_EXIST);
     }
 
     private UserInfoRsp entityToRsp(UserInfo userInfo){
