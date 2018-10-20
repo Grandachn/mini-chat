@@ -12,6 +12,17 @@ CREATE TABLE `user_info` (
   UNIQUE KEY `uid_key` (`uid`) USING HASH
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `step` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `uid` varchar(50) NOT NULL COMMENT '用户id',
+  `step` int NOT NULL DEFAULT '-1' COMMENT '步骤',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid_key` (`uid`) USING HASH
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `matchmaker_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
   `uid` varchar(50) NOT NULL COMMENT '红娘id',
